@@ -18,7 +18,6 @@ addNhanVien = () => {
   addNV.chucVu = selectedChucVu[indexChucVu].innerHTML;
   addNV.valueChucVu = +document.querySelector("#chucvu").value;
 
-  //   Check valid
   if (!checkValid(addNV)) return;
   // Thêm vào mảng nhân viên
   nhanVien.push(addNV);
@@ -131,20 +130,17 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   nhanVienEdit.luong = +document.querySelector("#luongCB").value;
   nhanVienEdit.gioLam = +document.querySelector("#gioLam").value;
   nhanVienEdit.heSoLuong = +document.querySelector("#chucvu").value;
-  //   Lấy chức vụ
   let selectedChucVu = document.querySelector("#chucvu");
   let indexChucVu = selectedChucVu.selectedIndex;
   nhanVienEdit.chucVu = selectedChucVu[indexChucVu].innerHTML;
-  nhanVienEdit.valueChucVu = +document.querySelector("#chucvu").value;
-  console.log(nhanVienEdit);
+  nhanVienEdit.valueChucVu = document.querySelector("#chucvu").value;
+
   // Check valid
   if (!checkValid(nhanVienEdit)) return;
-  console.log(nhanVienEdit);
   // Tìm nhân viên đúng tên tài khoản rồi gán giá trị mới
   let indexEdit = nhanVien.findIndex(
     (nhanvien) => nhanvien.taiKhoan === nhanVienEdit.taiKhoan
   );
-
   nhanVien[indexEdit].email = nhanVienEdit.email;
   nhanVien[indexEdit].ngayLam = nhanVienEdit.ngayLam;
   nhanVien[indexEdit].password = nhanVienEdit.password;
@@ -158,6 +154,7 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   render(nhanVien);
   document.querySelector("#tknv").disabled = false;
   document.querySelector("#name").disabled = false;
+  document.querySelector("#form").reset();
 });
 
 // function search

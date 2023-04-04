@@ -18,14 +18,36 @@ addNhanVien = () => {
   addNV.chucVu = selectedChucVu[indexChucVu].innerHTML;
   addNV.valueChucVu = +document.querySelector("#chucvu").value;
 
-  //   Check valid
-  if (!checkValid(addNV)) return;
+  // Check valid
+  let valid = true;
+
+  
+  //   Check bỏ trống;
+  valid =
+    required(addNV.taiKhoan, "error-taikhoan") &
+    required(addNV.hoTen, "name") &
+    required(addNV.email, "email") &
+    required(addNV.password, "password");
+
+
+
+  // Check email
+  valid = checkEmail(addNV.email, "email");
+
+
+  // Check lương
+  valid = checkLuong(addNV.luong, "luongCB");
+
+
+  // Check lương vào giờ làm
+  valid = checkGioLam(addNV.gioLam, "gioLam");
+
+  if (!valid) return;
   // Thêm vào mảng nhân viên
   nhanVien.push(addNV);
   // render lại giao diện
   render(nhanVien);
   saveStorage();
-  document.querySelector("#form").reset();
 };
 
 // Thêm nhân viên
@@ -91,15 +113,6 @@ document.querySelector("#btnDong").addEventListener("click", function () {
   document.querySelector("#tknv").disabled = false;
   document.querySelector("#name").disabled = false;
   document.querySelector("#form").reset();
-  // Reset lại thẻ span
-  reset("tbTKNV");
-  reset("tbTen");
-  reset("tbEmail");
-  reset("tbMatKhau");
-  reset("tbNgay");
-  reset("tbLuongCB");
-  reset("tbGiolam");
-  reset("tbChucVu");
 });
 
 // Lấy thông tin nhân viên;
@@ -131,20 +144,14 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   nhanVienEdit.luong = +document.querySelector("#luongCB").value;
   nhanVienEdit.gioLam = +document.querySelector("#gioLam").value;
   nhanVienEdit.heSoLuong = +document.querySelector("#chucvu").value;
-  //   Lấy chức vụ
   let selectedChucVu = document.querySelector("#chucvu");
   let indexChucVu = selectedChucVu.selectedIndex;
   nhanVienEdit.chucVu = selectedChucVu[indexChucVu].innerHTML;
-  nhanVienEdit.valueChucVu = +document.querySelector("#chucvu").value;
-  console.log(nhanVienEdit);
-  // Check valid
-  if (!checkValid(nhanVienEdit)) return;
-  console.log(nhanVienEdit);
+  nhanVienEdit.valueChucVu = document.querySelector("#chucvu").value;
   // Tìm nhân viên đúng tên tài khoản rồi gán giá trị mới
   let indexEdit = nhanVien.findIndex(
     (nhanvien) => nhanvien.taiKhoan === nhanVienEdit.taiKhoan
   );
-
   nhanVien[indexEdit].email = nhanVienEdit.email;
   nhanVien[indexEdit].ngayLam = nhanVienEdit.ngayLam;
   nhanVien[indexEdit].password = nhanVienEdit.password;
@@ -153,11 +160,11 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   nhanVien[indexEdit].heSoLuong = nhanVienEdit.heSoLuong;
   nhanVien[indexEdit].chucVu = nhanVienEdit.chucVu;
   nhanVien[indexEdit].valueChucVu = nhanVienEdit.valueChucVu;
-
   saveStorage();
   render(nhanVien);
   document.querySelector("#tknv").disabled = false;
   document.querySelector("#name").disabled = false;
+  document.querySelector("#form").reset();
 });
 
 // function search

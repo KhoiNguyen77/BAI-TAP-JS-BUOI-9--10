@@ -18,7 +18,33 @@ addNhanVien = () => {
   addNV.chucVu = selectedChucVu[indexChucVu].innerHTML;
   addNV.valueChucVu = +document.querySelector("#chucvu").value;
 
-  //   Check valid
+  //   // Check valid
+  //   let valid = true;
+  //   //   Check bỏ trống;
+  //   valid =
+  //     required(addNV.taiKhoan, "tknv", "tbTKNV") &
+  //     required(addNV.hoTen, "name", "tbTen") &
+  //     required(addNV.email, "email", "tbEmail") &
+  //     required(addNV.password, "password", "tbMatKhau") &
+  //     required(addNV.ngayLam, "datepicker", "tbNgay") &
+  //     numberRequired(addNV.luong, "luongCB", "tbLuongCB") &
+  //     numberRequired(addNV.gioLam, "gioLam", "tbGiolam");
+  //   // Check độ dài
+  //   valid = valid & lengthCheck(addNV.taiKhoan, "tknv", "tbTKNV", 4, 6);
+  //   //   Check tên
+  //   valid = valid & nameCheck(addNV.hoTen, "name", "tbTen");
+  //   // Check email
+  //   valid = valid & checkEmail(addNV.email, "email", "tbEmail");
+  //   // Check mật khẩu
+  //   valid = valid & checkPass(addNV.password, "password", "tbMatKhau");
+  //   // Check ngày
+  //   valid = valid & checkDate(addNV.ngayLam, "datepicker", "tbNgay");
+  //   // Check lương
+  //   valid = valid & checkLuong(addNV.luong, "luongCB", "tbLuongCB");
+  //   // Check chức vụ
+  //   valid = valid & checkChucVu(addNV.valueChucVu, "chucvu", "tbChucVu");
+  //   // Check lương vào giờ làm
+  //   valid = valid & checkGioLam(addNV.gioLam, "gioLam", "tbGiolam");
   if (!checkValid(addNV)) return;
   // Thêm vào mảng nhân viên
   nhanVien.push(addNV);
@@ -131,20 +157,43 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   nhanVienEdit.luong = +document.querySelector("#luongCB").value;
   nhanVienEdit.gioLam = +document.querySelector("#gioLam").value;
   nhanVienEdit.heSoLuong = +document.querySelector("#chucvu").value;
-  //   Lấy chức vụ
   let selectedChucVu = document.querySelector("#chucvu");
   let indexChucVu = selectedChucVu.selectedIndex;
   nhanVienEdit.chucVu = selectedChucVu[indexChucVu].innerHTML;
-  nhanVienEdit.valueChucVu = +document.querySelector("#chucvu").value;
-  console.log(nhanVienEdit);
+  nhanVienEdit.valueChucVu = document.querySelector("#chucvu").value;
   // Check valid
-  if (!checkValid(nhanVienEdit)) return;
-  console.log(nhanVienEdit);
+  let valid = true;
+  //   Check bỏ trống;
+  valid =
+    required(nhanVienEdit.taiKhoan, "tknv", "tbTKNV") &
+    required(nhanVienEdit.hoTen, "name", "tbTen") &
+    required(nhanVienEdit.email, "email", "tbEmail") &
+    required(nhanVienEdit.password, "password", "tbMatKhau") &
+    required(nhanVienEdit.ngayLam, "datepicker", "tbNgay") &
+    numberRequired(nhanVienEdit.luong, "luongCB", "tbLuongCB") &
+    numberRequired(nhanVienEdit.gioLam, "gioLam", "tbGiolam");
+  // Check độ dài
+  valid = valid & lengthCheck(nhanVienEdit.taiKhoan, "tknv", "tbTKNV", 4, 6);
+  //   Check tên
+  valid = valid & nameCheck(nhanVienEdit.hoTen, "name", "tbTen");
+  // Check email
+  valid = valid & checkEmail(nhanVienEdit.email, "email", "tbEmail");
+  // Check mật khẩu
+  valid = valid & checkPass(nhanVienEdit.password, "password", "tbMatKhau");
+  // Check ngày
+  valid = valid & checkDate(nhanVienEdit.ngayLam, "datepicker", "tbNgay");
+  // Check lương
+  valid = valid & checkLuong(nhanVienEdit.luong, "luongCB", "tbLuongCB");
+  // Check chức vụ
+  valid = valid & checkChucVu(nhanVienEdit.valueChucVu, "chucvu", "tbChucVu");
+  // Check lương vào giờ làm
+  valid = valid & checkGioLam(nhanVienEdit.gioLam, "gioLam", "tbGiolam");
+
+  if (!valid) return;
   // Tìm nhân viên đúng tên tài khoản rồi gán giá trị mới
   let indexEdit = nhanVien.findIndex(
     (nhanvien) => nhanvien.taiKhoan === nhanVienEdit.taiKhoan
   );
-
   nhanVien[indexEdit].email = nhanVienEdit.email;
   nhanVien[indexEdit].ngayLam = nhanVienEdit.ngayLam;
   nhanVien[indexEdit].password = nhanVienEdit.password;
@@ -158,6 +207,7 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   render(nhanVien);
   document.querySelector("#tknv").disabled = false;
   document.querySelector("#name").disabled = false;
+  document.querySelector("#form").reset();
 });
 
 // function search

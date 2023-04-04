@@ -158,6 +158,7 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   render(nhanVien);
   document.querySelector("#tknv").disabled = false;
   document.querySelector("#name").disabled = false;
+  document.querySelector("#form").reset();
 });
 
 // function search

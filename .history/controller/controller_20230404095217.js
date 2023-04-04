@@ -18,14 +18,14 @@ addNhanVien = () => {
   addNV.chucVu = selectedChucVu[indexChucVu].innerHTML;
   addNV.valueChucVu = +document.querySelector("#chucvu").value;
 
-  //   Check valid
-  if (!checkValid(addNV)) return;
+  // Check valid
+    let valid = true;
+    
   // Thêm vào mảng nhân viên
   nhanVien.push(addNV);
   // render lại giao diện
   render(nhanVien);
   saveStorage();
-  document.querySelector("#form").reset();
 };
 
 // Thêm nhân viên
@@ -54,7 +54,6 @@ render = (array) => {
   });
   document.querySelector("#tableDanhSach").innerHTML = stringHTML;
 };
-
 // Xóa nhân viên
 deleteNhanVien = (taikhoan) => {
   //   nhanVien.forEach((nhanvien, index) => {
@@ -85,23 +84,12 @@ deleteNhanVien = (taikhoan) => {
 //   document.querySelector("#gioLam").value = nhanVien[indexEdit].gioLam;
 //   document.querySelector("#chucvu").value = nhanVien[indexEdit].chucVu;
 // };
-
 // function nút đóng:
 document.querySelector("#btnDong").addEventListener("click", function () {
+  document.querySelector("#form").reset();
   document.querySelector("#tknv").disabled = false;
   document.querySelector("#name").disabled = false;
-  document.querySelector("#form").reset();
-  // Reset lại thẻ span
-  reset("tbTKNV");
-  reset("tbTen");
-  reset("tbEmail");
-  reset("tbMatKhau");
-  reset("tbNgay");
-  reset("tbLuongCB");
-  reset("tbGiolam");
-  reset("tbChucVu");
 });
-
 // Lấy thông tin nhân viên;
 document.querySelector("#btnLayNV").addEventListener("click", function () {
   nhanVien.forEach((nhanvien, index) => {
@@ -118,7 +106,6 @@ document.querySelector("#btnLayNV").addEventListener("click", function () {
     }
   });
 });
-
 // Cập nhật thông tin nhân viên;
 document.querySelector("#btnCapNhat").addEventListener("click", function () {
   // tạo mảng chứa thông tin nhân viên mới
@@ -131,20 +118,14 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   nhanVienEdit.luong = +document.querySelector("#luongCB").value;
   nhanVienEdit.gioLam = +document.querySelector("#gioLam").value;
   nhanVienEdit.heSoLuong = +document.querySelector("#chucvu").value;
-  //   Lấy chức vụ
   let selectedChucVu = document.querySelector("#chucvu");
   let indexChucVu = selectedChucVu.selectedIndex;
   nhanVienEdit.chucVu = selectedChucVu[indexChucVu].innerHTML;
-  nhanVienEdit.valueChucVu = +document.querySelector("#chucvu").value;
-  console.log(nhanVienEdit);
-  // Check valid
-  if (!checkValid(nhanVienEdit)) return;
-  console.log(nhanVienEdit);
+  nhanVienEdit.valueChucVu = document.querySelector("#chucvu").value;
   // Tìm nhân viên đúng tên tài khoản rồi gán giá trị mới
   let indexEdit = nhanVien.findIndex(
     (nhanvien) => nhanvien.taiKhoan === nhanVienEdit.taiKhoan
   );
-
   nhanVien[indexEdit].email = nhanVienEdit.email;
   nhanVien[indexEdit].ngayLam = nhanVienEdit.ngayLam;
   nhanVien[indexEdit].password = nhanVienEdit.password;
@@ -153,11 +134,11 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   nhanVien[indexEdit].heSoLuong = nhanVienEdit.heSoLuong;
   nhanVien[indexEdit].chucVu = nhanVienEdit.chucVu;
   nhanVien[indexEdit].valueChucVu = nhanVienEdit.valueChucVu;
-
   saveStorage();
   render(nhanVien);
   document.querySelector("#tknv").disabled = false;
   document.querySelector("#name").disabled = false;
+  document.querySelector("#form").reset();
 });
 
 // function search
@@ -189,7 +170,6 @@ getStorage = () => {
     nhanVien = JSON.parse(localStorage.getItem("Mảng Nhân Viên"));
   }
 };
-
 // Gọi local storage
 getStorage();
 

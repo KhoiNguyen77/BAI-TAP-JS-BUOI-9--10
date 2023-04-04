@@ -135,7 +135,7 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   let selectedChucVu = document.querySelector("#chucvu");
   let indexChucVu = selectedChucVu.selectedIndex;
   nhanVienEdit.chucVu = selectedChucVu[indexChucVu].innerHTML;
-  nhanVienEdit.valueChucVu = +document.querySelector("#chucvu").value;
+  nhanVienEdit.valueChucVu = document.querySelector("#chucvu").value;
   console.log(nhanVienEdit);
   // Check valid
   if (!checkValid(nhanVienEdit)) return;
@@ -158,6 +158,7 @@ document.querySelector("#btnCapNhat").addEventListener("click", function () {
   render(nhanVien);
   document.querySelector("#tknv").disabled = false;
   document.querySelector("#name").disabled = false;
+  document.querySelector("#form").reset();
 });
 
 // function search

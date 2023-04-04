@@ -3,9 +3,6 @@ const VND = new Intl.NumberFormat("vi-VN", {
   style: "currency",
   currency: "VND",
 });
-
-
-
 // Prototype Nhân Viên
 function NhanVien() {
   this.taiKhoan = "";
@@ -31,3 +28,6 @@ function NhanVien() {
   };
 }
 
+
+
+// Validation
